@@ -1,8 +1,21 @@
 import { Routes } from '@angular/router';
-import { ProductosComponent } from './pages/productos/productos.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'productos', pathMatch: 'full' },
-  { path: 'productos', component: ProductosComponent },
-  { path: '**', redirectTo: 'productos' }
+  {
+    path: '',
+    redirectTo: 'inventario',
+    pathMatch: 'full'
+  },
+
+  {
+    path: 'inventario',
+    loadComponent: () =>
+      import('./pages/inventario/inventario.component')
+      .then(m => m.InventarioComponent)
+  },
+
+  {
+    path: '**',
+    redirectTo: 'inventario'
+  }
 ];

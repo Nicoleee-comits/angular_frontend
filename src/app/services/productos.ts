@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Producto } from '../models/producto';
 
 @Injectable({
   providedIn: 'root'
@@ -12,24 +11,29 @@ export class ProductosService {
 
   constructor(private http: HttpClient) {}
 
-  // LISTAR (POST)
-  obtenerProductos(): Observable<Producto[]> {
-    // tu API lista con POST sin body
-    return this.http.post<Producto[]>(`${this.apiUrl}`, {});
+  // 🔹 OBTENER PRODUCTOS (GET)
+  obtenerProductos(): Observable<any> {
+    return this.http.get(this.apiUrl);
   }
 
-  // CREAR
-  crearProducto(data: Producto): Observable<Producto> {
-    return this.http.post<Producto>(`${this.apiUrl}/crear`, data);
+  // 🔹 CREAR PRODUCTO
+  crearProducto(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/crear`, data);
   }
 
-  // ACTUALIZAR
-  actualizarProducto(id: number, data: Producto): Observable<Producto> {
-    return this.http.put<Producto>(`${this.apiUrl}/${id}`, data);
+  // 🔹 OBTENER POR ID
+  obtenerPorId(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  // ELIMINAR
+  // 🔹 ACTUALIZAR PRODUCTO
+  actualizarProducto(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, data);
+  }
+
+  // 🔹 ELIMINAR PRODUCTO
   eliminarProducto(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
 }

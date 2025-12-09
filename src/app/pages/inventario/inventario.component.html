@@ -1,0 +1,41 @@
+<h2>Inventario</h2>
+
+<!-- FORMULARIO -->
+<form (ngSubmit)="crearProducto()">
+
+  <input type="text" placeholder="Nombre" [(ngModel)]="nuevoProducto.nombre_producto" name="nombre_producto" required>
+
+  <input type="text" placeholder="Marca" [(ngModel)]="nuevoProducto.marca" name="marca">
+
+  <input type="text" placeholder="Modelo" [(ngModel)]="nuevoProducto.modelo" name="modelo">
+
+  <input type="text" placeholder="Nro Serie" [(ngModel)]="nuevoProducto.nro_serie" name="nro_serie">
+
+  <button type="submit">Guardar</button>
+</form>
+
+<hr>
+
+<!-- TABLA -->
+<table border="1" width="100%">
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Marca</th>
+    <th>Modelo</th>
+    <th>N° Serie</th>
+    <th>Acciones</th>
+  </tr>
+
+  <tr *ngFor="let p of productos">
+    <td>{{ p.id_producto }}</td>
+    <td>{{ p.nombre_producto }}</td>
+    <td>{{ p.marca }}</td>
+    <td>{{ p.modelo }}</td>
+    <td>{{ p.nro_serie }}</td>
+
+    <td>
+      <button (click)="eliminarProducto(p.id_producto)">Eliminar</button>
+    </td>
+  </tr>
+</table>
