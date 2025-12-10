@@ -16,7 +16,7 @@
 
 <hr>
 
-<!-- TABLA -->
+<!-- TABLA -->                                  
 <table border="1" width="100%">
   <tr>
     <th>ID</th>
@@ -36,6 +36,21 @@
 
     <td>
       <button (click)="eliminarProducto(p.id_producto)">Eliminar</button>
+      <button (click)="activarEdicion(p)">Editar</button>
     </td>
   </tr>
 </table>
+
+<div *ngIf="editando" style="margin-top: 20px; padding: 10px; border: 1px solid gray;">
+  <h3>Editar Producto</h3>
+
+  <input type="text" [(ngModel)]="productoEditando.nombre_producto" placeholder="Nombre">
+  <input type="text" [(ngModel)]="productoEditando.marca" placeholder="Marca">
+  <input type="text" [(ngModel)]="productoEditando.modelo" placeholder="Modelo">
+  <input type="text" [(ngModel)]="productoEditando.nro_serie" placeholder="Nro Serie">
+
+  <br><br>
+
+  <button (click)="guardarEdicion()">Guardar cambios</button>
+  <button (click)="cancelarEdicion()">Cancelar</button>
+</div>
