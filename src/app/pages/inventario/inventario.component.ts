@@ -20,8 +20,8 @@ export class InventarioComponent {
     modelo: '',
     nro_serie: ''
   };
-    editando: boolean = false;
-    productoEditando: any = null;
+   editando: boolean = false;
+   productoEditando: any = null;
 
   constructor(private productosService: ProductosService) {}
 
@@ -65,12 +65,11 @@ export class InventarioComponent {
     });
   }
 
-  activarEdicion(producto: any) {
+   activarEdicion(producto: any) {
   this.editando = true;
   this.productoEditando = { ...producto }; // clonamos para no dañar la tabla
 }
-
-guardarEdicion() {
+   guardarEdicion() {
   this.productosService.actualizarProducto(
     this.productoEditando.id_producto,
     this.productoEditando
@@ -87,6 +86,27 @@ guardarEdicion() {
 cancelarEdicion() {
   this.editando = false;
   this.productoEditando = null;
+}
+
+confirmando = false;
+idAEliminar: number | null = null;
+
+pedirConfirmacionEliminar(id: number) {
+  this.idAEliminar = id;
+  this.confirmando = true;
+}
+
+confirmarEliminacion() {
+  if (this.idAEliminar != null) {
+    this.eliminarProducto(this.idAEliminar);
+  }
+  this.confirmando = false;
+  this.idAEliminar = null;
+}
+
+cancelarEliminacion() {
+  this.confirmando = false;
+  this.idAEliminar = null;
 }
 
 }

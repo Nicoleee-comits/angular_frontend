@@ -1,56 +1,78 @@
-<h2>Inventario</h2>
 
-<!-- FORMULARIO -->
-<form (ngSubmit)="crearProducto()">
+<div class="contenedor-principal">
+  <h2 class="titulo">Inventario de Equipos</h2>
+  <div class="formulario-contenedor">
+    <form class="formulario" (ngSubmit)="crearProducto()">
+      <div class="fila">
+        <input type="text" placeholder="Nombre" [(ngModel)]="nuevoProducto.nombre_producto" name="nombre_producto" required>
+        <input type="text" placeholder="Marca" [(ngModel)]="nuevoProducto.marca" name="marca">
+      </div>
+      <div class="fila">
+        <input type="text" placeholder="Modelo" [(ngModel)]="nuevoProducto.modelo" name="modelo">
+        <input type="text" placeholder="Nro Serie" [(ngModel)]="nuevoProducto.nro_serie" name="nro_serie">
+      </div>
+      <button class="btn-guardar" type="submit">Guardar</button>
+    </form>
+  </div>
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>N° Serie</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of productos; let i = index" [class.fila-par]="i % 2 === 0">
+          <td>{{ p.id_producto }}</td>
+          <td>{{ p.nombre_producto }}</td>
+          <td>{{ p.marca }}</td>
+          <td>{{ p.modelo }}</td>
+          <td>{{ p.nro_serie }}</td>
+          <td class="acciones">
+            <button class="btn-editar" (click)="activarEdicion(p)">Editar</button>
+            <button class="btn-eliminar" (click)="pedirConfirmacionEliminar(p.id_producto)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-edicion" *ngIf="editando">
+    <h3>Editar Producto</h3>
+    <input type="text" [(ngModel)]="productoEditando.nombre_producto" placeholder="Nombre">
+    <input type="text" [(ngModel)]="productoEditando.marca" placeholder="Marca">
+    <input type="text" [(ngModel)]="productoEditando.modelo" placeholder="Modelo">
+    <input type="text" [(ngModel)]="productoEditando.nro_serie" placeholder="Nro Serie">
+    <div class="botones-edicion">
+      <button class="btn-guardar" (click)="guardarEdicion()">Guardar cambios</button>
+      <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
+  </div>
+</div>
 
-  <input type="text" placeholder="Nombre" [(ngModel)]="nuevoProducto.nombre_producto" name="nombre_producto" required>
 
-  <input type="text" placeholder="Marca" [(ngModel)]="nuevoProducto.marca" name="marca">
-
-  <input type="text" placeholder="Modelo" [(ngModel)]="nuevoProducto.modelo" name="modelo">
-
-  <input type="text" placeholder="Nro Serie" [(ngModel)]="nuevoProducto.nro_serie" name="nro_serie">
-
-  <button type="submit">Guardar</button>
-</form>
-
-<hr>
-
-<!-- TABLA -->                                  
-<table border="1" width="100%">
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Marca</th>
-    <th>Modelo</th>
-    <th>N° Serie</th>
-    <th>Acciones</th>
-  </tr>
-
-  <tr *ngFor="let p of productos">
-    <td>{{ p.id_producto }}</td>
-    <td>{{ p.nombre_producto }}</td>
-    <td>{{ p.marca }}</td>
-    <td>{{ p.modelo }}</td>
-    <td>{{ p.nro_serie }}</td>
-
-    <td>
-      <button (click)="eliminarProducto(p.id_producto)">Eliminar</button>
-      <button (click)="activarEdicion(p)">Editar</button>
-    </td>
-  </tr>
-</table>
-
-<div *ngIf="editando" style="margin-top: 20px; padding: 10px; border: 1px solid gray;">
-  <h3>Editar Producto</h3>
-
-  <input type="text" [(ngModel)]="productoEditando.nombre_producto" placeholder="Nombre">
-  <input type="text" [(ngModel)]="productoEditando.marca" placeholder="Marca">
-  <input type="text" [(ngModel)]="productoEditando.modelo" placeholder="Modelo">
-  <input type="text" [(ngModel)]="productoEditando.nro_serie" placeholder="Nro Serie">
-
-  <br><br>
-
-  <button (click)="guardarEdicion()">Guardar cambios</button>
-  <button (click)="cancelarEdicion()">Cancelar</button>
+<div class="modal-overlay" *ngIf="confirmando">
+  <div class="modal-contenido animated-modal">
+    <div class="modal-icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="12" fill="#dc3545"/>
+        <path d="M12 8v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="16" r="1" fill="#fff"/>
+      </svg>
+    </div>
+    <h2 class="modal-title">¿Eliminar producto?</h2>
+    <p class="subtext">Esta acción no se puede deshacer. El producto será eliminado permanentemente.</p>
+    <div class="botones-modal">
+      <button class="btn-guardar btn-danger" (click)="confirmarEliminacion()">
+        Sí, eliminar
+      </button>
+      <button class="btn-cancelar" (click)="cancelarEliminacion()">
+        Cancelar
+      </button>
+    </div>
+  </div>
 </div>
