@@ -20,6 +20,8 @@ export class InventarioComponent {
     modelo: '',
     nro_serie: ''
   };
+   editando: boolean = false;
+   productoEditando: any = null;
 
   constructor(private productosService: ProductosService) {}
 
@@ -62,4 +64,28 @@ export class InventarioComponent {
       }
     });
   }
+
+   activarEdicion(producto: any) {
+  this.editando = true;
+  this.productoEditando = { ...producto }; // clonamos para no dañar la tabla
+}
+   guardarEdicion() {
+  this.productosService.actualizarProducto(
+    this.productoEditando.id_producto,
+    this.productoEditando
+  ).subscribe({
+    next: () => {
+      this.editando = false;
+      this.productoEditando = null;
+      this.cargarProductos();
+    },
+    error: (err) => console.error("Error actualizando:", err)
+  });
+}
+
+cancelarEdicion() {
+  this.editando = false;
+  this.productoEditando = null;
+}
+
 }

@@ -1,41 +1,67 @@
-<h2>Inventario</h2>
+<div class="contenedor">
 
-<!-- FORMULARIO -->
-<form (ngSubmit)="crearProducto()">
+  <h2 class="titulo">Inventario de Equipos</h2>
 
-  <input type="text" placeholder="Nombre" [(ngModel)]="nuevoProducto.nombre_producto" name="nombre_producto" required>
+  <!-- FORMULARIO -->
+  <form class="formulario" (ngSubmit)="crearProducto()">
 
-  <input type="text" placeholder="Marca" [(ngModel)]="nuevoProducto.marca" name="marca">
+    <div class="fila">
+      <input type="text" placeholder="Nombre" [(ngModel)]="nuevoProducto.nombre_producto" name="nombre_producto" required>
+      <input type="text" placeholder="Marca" [(ngModel)]="nuevoProducto.marca" name="marca">
+    </div>
 
-  <input type="text" placeholder="Modelo" [(ngModel)]="nuevoProducto.modelo" name="modelo">
+    <div class="fila">
+      <input type="text" placeholder="Modelo" [(ngModel)]="nuevoProducto.modelo" name="modelo">
+      <input type="text" placeholder="Nro Serie" [(ngModel)]="nuevoProducto.nro_serie" name="nro_serie">
+    </div>
 
-  <input type="text" placeholder="Nro Serie" [(ngModel)]="nuevoProducto.nro_serie" name="nro_serie">
+    <button class="btn-guardar" type="submit">Guardar</button>
+  </form>
 
-  <button type="submit">Guardar</button>
-</form>
+  <hr class="separador">
 
-<hr>
+  <!-- TABLA -->
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>N° Serie</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
 
-<!-- TABLA -->
-<table border="1" width="100%">
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Marca</th>
-    <th>Modelo</th>
-    <th>N° Serie</th>
-    <th>Acciones</th>
-  </tr>
+    <tbody>
+      <tr *ngFor="let p of productos">
+        <td>{{ p.id_producto }}</td>
+        <td>{{ p.nombre_producto }}</td>
+        <td>{{ p.marca }}</td>
+        <td>{{ p.modelo }}</td>
+        <td>{{ p.nro_serie }}</td>
 
-  <tr *ngFor="let p of productos">
-    <td>{{ p.id_producto }}</td>
-    <td>{{ p.nombre_producto }}</td>
-    <td>{{ p.marca }}</td>
-    <td>{{ p.modelo }}</td>
-    <td>{{ p.nro_serie }}</td>
+        <td>
+          <button class="btn-editar" (click)="activarEdicion(p)">Editar</button>
+          <button class="btn-eliminar" (click)="eliminarProducto(p.id_producto)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-    <td>
-      <button (click)="eliminarProducto(p.id_producto)">Eliminar</button>
-    </td>
-  </tr>
-</table>
+  <!-- FORMULARIO DE EDICIÓN -->
+  <div class="modal-edicion" *ngIf="editando">
+    <h3>Editar Producto</h3>
+
+    <input type="text" [(ngModel)]="productoEditando.nombre_producto" placeholder="Nombre">
+    <input type="text" [(ngModel)]="productoEditando.marca" placeholder="Marca">
+    <input type="text" [(ngModel)]="productoEditando.modelo" placeholder="Modelo">
+    <input type="text" [(ngModel)]="productoEditando.nro_serie" placeholder="Nro Serie">
+
+    <div class="botones-edicion">
+      <button class="btn-guardar" (click)="guardarEdicion()">Guardar cambios</button>
+      <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
+  </div>
+
+</div>

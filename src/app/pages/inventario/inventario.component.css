@@ -1,0 +1,127 @@
+/* CONTENEDOR GENERAL */
+.contenedor {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* TITULO */
+.titulo {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 28px;
+}
+
+/* FORMULARIO */
+.formulario {
+  background: #f7f7f7;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.fila {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  outline: none;
+  transition: .2s;
+}
+
+input:focus {
+  border-color: #007bff;
+}
+
+.btn-guardar {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+  transition: .2s;
+}
+
+.btn-guardar:hover {
+  background: #0056b3;
+}
+
+/* TABLA */
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tabla th {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+}
+
+.tabla td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla tr:hover {
+  background: #f2f2f2;
+}
+
+.btn-editar {
+  padding: 5px 10px;
+  background: #ffc107;
+  border: none;
+  color: #333;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.btn-eliminar {
+  padding: 5px 10px;
+  background: #dc3545;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* MODAL DE EDICIÓN */
+.modal-edicion {
+  margin-top: 25px;
+  padding: 15px;
+  background: #fff4d6;
+  border: 1px solid #f4c983;
+  border-radius: 8px;
+}
+
+.botones-edicion {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-cancelar {
+  padding: 10px;
+  background: #6c757d;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
